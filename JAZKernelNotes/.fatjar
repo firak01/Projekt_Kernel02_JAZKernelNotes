@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Sun Nov 30 10:40:07 CET 2014
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=C\:\\1fgl\\workspace\\Eclipse3FGL_V02\\ZKernelFileZJar\\JAZKernelNotes_fat.jar
+manifest.mergeall=false
+manifest.mainclass=test.KernelNotesAllTest
+manifest.file=<createnew>
+jarname.isextern=true
+onejar.expand=
+excludes=<po|JAZKernel>
+includes=

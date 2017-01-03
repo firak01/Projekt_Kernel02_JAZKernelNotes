@@ -1,0 +1,16 @@
+package zzzKernelCustom;
+import zzzKernelBasic.*;
+import lotus.domino.*;
+/**
+ * @author 0823
+ *
+ * To change this generated comment edit the template variable "typecomment":
+ * Window>Preferences>Java>Templates.
+ * To enable and disable the creation of type comments go to
+ * Window>Preferences>Java>Code Generation.
+ */
+public class KernelZZZ extends KernelKernelZZZ{
+	public KernelZZZ(Session sessionIn, String sKeyApplicationIn, String sFlagControlIn){
+		System.out.println("Bin im Konstruktor des Custom-Kernels");
+	}
+}

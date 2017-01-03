@@ -1,0 +1,38 @@
+package zzzKernelBasic;
+
+/**
+ * @author 0823
+ *
+ * To change this generated comment edit the template variable "typecomment":
+ * Window>Preferences>Java>Templates.
+ * To enable and disable the creation of type comments go to
+ * Window>Preferences>Java>Code Generation.
+ */
+public class DataTypeArrayR5ZZZ {
+	private String[] saIntern;
+	private boolean bIsString = false;
+
+	//Konstruktoren
+	public DataTypeArrayR5ZZZ(String args[]){
+		this.saIntern = args;
+		this.bIsString = true;
+	}
+	
+	public boolean contains(String sToFind){
+		boolean bErg = false;
+		
+		if(this.bIsString == true){
+		 for(int iCounter = 0; iCounter <= this.saIntern.length -1; iCounter++){
+		 	String sTemp = saIntern[iCounter];
+		 	// Erst ab Java 1.2   if (sTemp.compareToIgnoreCase(sToFind)== 0){
+		 	if (sTemp.compareTo(sToFind)== 0){
+		 		bErg = true;
+		 		break;
+		 	}
+		 } // end for	
+		} //end if
+		
+output:		
+		return bErg;
+	}
+}

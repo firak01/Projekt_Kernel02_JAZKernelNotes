@@ -1,0 +1,222 @@
+package zzzKernelBasic;
+import zzzKernelCustom.*;
+import lotus.domino.*;
+/**
+ * @author 0823
+ *
+ * To change this generated comment edit the template variable "typecomment":
+ * Window>Preferences>Java>Templates.
+ * To enable and disable the creation of type comments go to
+ * Window>Preferences>Java>Code Generation.
+ */
+public class KernelKernelZZZ extends AssetZZZ{
+//Variablen
+	final String sKeyKernelInput = "ZZZ";
+	Session session;
+	private AgentContext agtKernelCallingContext;
+	private Database dbKernelCalling;
+	
+	
+//Konstruktoren
+  public KernelKernelZZZ()throws ExceptionZZZ{
+  	System.out.println("Bin im Konstruktor des Basic-Kernels");
+
+  	/* die umzusetzende Lotusscript-Version
+  	 * 	Dim dbCur As notesdatabase
+	Dim docProfileKernel As notesdocument
+	Dim docProfileApplication As notesdocument
+	Dim NameServer As notesname
+	Dim item As notesitem
+	Dim sKeyApplication As String, sKeyProfile As String, sNameServer As String, sKeyKernel As String
+	Dim sError As String, sFlagControl As String
+	Dim sScriptposition As String
+	Dim itemp As Integer, doctemp As notesdocument
+
+	sScriptposition = sLibZZZ & "\KernelNew_"
+	
+	'### Übergabeparameter prüfen
+	Set objKernel.session = sessionInput
+	
+	If Len(sKeyKernelInput) = 0 Then
+		objKernel.KernelKey = "ZZZ"          'das ist normalerweise "ZZZ"
+	Else
+		sKeyKernel = Ucase(sKeyKernelInput)
+		objKernel.KernelKey = "ZZZ"          'das ist normalerweise "ZZZ"
+	End If	
+	
+	Set dbCur = sessionInput.currentdatabase
+	Set objKernel.KernelDBCalling = dbCur
+
+	If Len(dbcur.server) > 0 Then
+		Set NameServer = New notesname(dbcur.server)
+		sNameServer = NameServer.canonical
+	Else
+		sNameServer = sessioninput.username
+	End If
+	
+	If Len(sFlagControlInput) > 0 Then
+		sFlagControl = Ucase(sFlagControlInput)
+		If sFlagControl <> "INIT" Then
+			sError = "Der Parameter '" & sFlagControlInput & "' ist nicht erlaubt."
+			Goto endeerror
+		Else
+			objKernel.Status.iFlagInit = True
+			
+			'+++ Das Kernel-Log
+			If objLogZZZ Is Nothing Then Set objLogZZZ = New KernelKernelLogZZZ(objKernel,"","")
+			If Len(objLogZZZ.Errormessage) > 0 Then
+				sError = objLogZZZ.Errormessage
+				Goto endeError
+			End If
+			Set objKernel.KernelLog = objLogZZZ
+			
+			'+++ 
+			Goto EndeSuccess
+		End If
+	End If
+	
+	
+	'+++ Das Profildokument für den "ZZZ"-Kernel holen		
+	Set docProfileKernel = dbcur.GetProfileDocument("frmAdminKey" & sKeyKernelInput, sNameServer & sKeyKernelInput)
+	If Not docProfileKernel.hasitem("ApplicationKeyZZZ") Then
+		'Es kann sich nur um die Neuanlage des Profildokuments für den ZZZ-Kernel handeln.
+		If Len(sKeyApplicationInput) = 0 Then
+			sError = "Das Kernelprofildokument besitzt keine Eintragung der Applikation '" & sKeyKernelInput & "'. Noch nicht konfiguriert ?"
+			Goto EndeError		
+		End If	
+		Set objKernel.KernelProfile = docProfileKernel
+	End If
+	
+	'+++ Das Profildokument für die Applikation in der aktuellen Datenbank, wird kein Key angegeben, so muß der ApplicationKey explizit gesetzt werden, andernfalls werden Default-Werte verwendet.
+	If Len(sKeyApplicationInput) = 0 Then
+		sKeyApplication = objKernel.ApplicationKeyDefault
+		If Len(sKeyApplication) = 0 Then
+			sKeyApplication = objKernel.ApplicationKey
+			If Len(objKernel.Errormessage) > 0 Then
+				sError = objKernel.Errormessage & Chr(13) & Chr(10) & "Default ApplicationKey nicht definiert und Application Key nicht bei der Initialisierung des KernelObjekts übergeben."
+				Goto EndeError
+			End If	
+		End If
+	Else
+		sKeyApplication = sKeyApplicationInput
+	End If
+	'Mit Setzen dieser Property wird das Profildokument gesetzt
+	objKernel.ApplicationKey = sKeyApplication	
+	
+	'+++ Das Kernel-Log
+	If objLogZZZ Is Nothing Then Set objLogZZZ = New KernelKernelLogZZZ(objKernel,sKeyApplication,"")
+	If Len(objLogZZZ.Errormessage) > 0 Then
+		sError = objLogZZZ.Errormessage
+		Goto endeError
+	End If
+	Set objKernel.KernelLog = objLogZZZ	
+	
+	
+	'++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+EndeSuccess:
+	objKernel.Errormessage = ""
+	Exit Sub	
+EndeError:
+	objKernel.Errormessage = "Fehler bei der Initiierung des Kernelobjektes." & sError
+	Msgbox objKernel.Errormessage
+	Exit Sub
+errorHandler:
+	sError = sError & Chr(13) & Chr(10) & Error$ & " ( Funktion: " & sScriptposition & ", Zeile: " & Cstr(Erl) & ")"
+	Resume EndeError
+  	 * 
+  	 */
+  } //end Constructor
+
+  public KernelKernelZZZ(Session sessionIn, String sKeyApplicationIn, String[] saFlagControlIn) throws ExceptionZZZ{
+start:
+  			System.out.println("Start: Konstruktor des Basic-Kernels");
+main:
+	try{
+            if(sessionIn != null){
+            	this.session = sessionIn;
+            }else{
+            // Corba.ORB wird als nicht stabil angesehen !!!
+            // this.session = NotesFactory.createSession();
+              System.out.println("Missing Parameter: Session");
+              System.exit(0);
+            }
+
+            // Die aufrufende Datenbank ermitteln
+            agtKernelCallingContext = session.getAgentContext();
+            dbKernelCalling = agtKernelCallingContext.getCurrentDatabase();
+
+            // Server oder Benutzername ermitteln, ist der Key für das Profildokument
+            String sNameKeyTemp = "";
+            sNameKeyTemp = dbKernelCalling.getServer();
+            if(sNameKeyTemp == ""){
+            	sNameKeyTemp = session.getUserName();	
+            }            	
+
+			Name nNameKey = session.createName(sNameKeyTemp);
+			String sNameKey = nNameKey.getCanonical();
+			
+			// Damit das Kernelobjekt auch ohne Profildokument genutzt werden kann:			
+			if(saFlagControlIn != null){
+				DataTypeArrayR5ZZZ dtArray = new DataTypeArrayR5ZZZ(saFlagControlIn);
+				if(dtArray.contains("INIT")){
+			/*
+			objKernel.Status.iFlagInit = True
+			
+			'+++ Das Kernel-Log
+			If objLogZZZ Is Nothing Then Set objLogZZZ = New KernelKernelLogZZZ(objKernel,"","")
+			If Len(objLogZZZ.Errormessage) > 0 Then
+				sError = objLogZZZ.Errormessage
+				Goto endeError
+			End If
+			Set objKernel.KernelLog = objLogZZZ
+			
+			'+++ 
+			Goto EndeSuccess
+			 */
+				} // end if .contains("...")				
+			} // end if(sFlagControlIn <> "")
+
+      // Beginn der Exception Handler
+	} catch(NotesException e) {
+		System.out.println(e.id + " " + e.text);
+		e.printStackTrace();
+        System.exit(0);
+		} //NotesException
+	 catch(Exception e){
+		e.printStackTrace();
+    	System.exit(0);
+		}
+end:
+		System.out.println("Ende: Konstruktor des Basic-Kernels");
+  }//end Constructor
+  
+  
+  //++++++++++++++++++++++++++++++
+  public String ProfileKeyKernelCompute(String[] args){
+  	String sKey = "";
+  	//"frmAdminKey" & sKeyKernelInput, sNameServer & sKeyKernelInput
+  	return sKey;
+  }
+  
+
+   //++++++++++++++++++++++++++++++
+   public String ProfileKeyApplicationCompute(String[] args){
+  	String sKey = "";
+  	/*
+  	 * '+++ Das Profildokument für die Applikation in der aktuellen Datenbank, wird kein Key angegeben, so muß der ApplicationKey explizit gesetzt werden, andernfalls werden Default-Werte verwendet.
+	If Len(sKeyApplicationInput) = 0 Then
+		sKeyApplication = objKernel.ApplicationKeyDefault
+		If Len(sKeyApplication) = 0 Then
+			sKeyApplication = objKernel.ApplicationKey
+			If Len(objKernel.Errormessage) > 0 Then
+				sError = objKernel.Errormessage & Chr(13) & Chr(10) & "Default ApplicationKey nicht definiert und Application Key nicht bei der Initialisierung des KernelObjekts übergeben."
+				Goto EndeError
+			End If	
+		End If
+	Else
+		sKeyApplication = sKeyApplicationInput
+	End If
+	*/
+  	return sKey;
+  }  
+} //end class KernelKernelZZZ
