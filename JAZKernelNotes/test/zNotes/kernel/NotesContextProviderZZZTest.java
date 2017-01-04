@@ -146,7 +146,8 @@ public class NotesContextProviderZZZTest extends TestCase {
 		try {
 			assertEquals("db\\fgl\\JAZ-Kernel\\Test\\ZKernel_JavaTest_Application.nsf", objContextTest.getDBCallingPath());
 			assertEquals("", objContextTest.getServerCalling());
-			assertEquals("c:\\lotus\\notes7", objContextTest.getPathNotesExe());
+			//Für Entwicklungsumgebung anzupassen: assertEquals("c:\\lotus\\notes7", objContextTest.getPathNotesExe());
+			assertEquals("C:\\lotus\\notes", objContextTest.getPathNotesExe());
 			assertEquals("c:\\fglkernel\\kernelcontext\\flindhauer_fgl.id", objContextTest.getUserIdPath());
 			assertEquals("Fritz Lindhauer/fgl/DE", objContextTest.getUsername());
 			assertEquals("", objContextTest.getPassword());
@@ -154,7 +155,7 @@ public class NotesContextProviderZZZTest extends TestCase {
 			AgentZZZ objAgent = objContextTest.getKernelAgent();
 			assertNotNull(objAgent);
 			try{
-				assertEquals("test.zNotes.Kernel.NotesContextProviderZZZTest", objAgent.getAgentName() );
+				assertEquals("zNotes.kernel.NotesContextProviderZZZTest", objAgent.getAgentName() );
 			}catch(NotesException ne){
 				fail("Method throws a NotesException: " + ne.text);
 			}
