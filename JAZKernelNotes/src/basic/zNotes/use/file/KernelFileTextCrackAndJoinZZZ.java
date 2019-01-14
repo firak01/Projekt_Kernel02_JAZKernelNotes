@@ -11,7 +11,7 @@ import java.io.File;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 import basic.zNotes.kernel.KernelNotesUseObjectZZZ;
 import custom.zKernel.file.FileTextImportCrackZZZ;
 import custom.zKernel.file.FileTextJoinZZZ;
@@ -161,7 +161,7 @@ public class KernelFileTextCrackAndJoinZZZ  extends KernelNotesUseObjectZZZ{
 			
 			//1. create Joining object, remember: This will create an output - stream, which will create a file, also if there are no files to process.
 			KernelNotesZZZ objKernelNotes = this.getKernelNotesObject();
-			KernelZZZ objKernel = objKernelNotes.getKernelObject();
+			IKernelZZZ objKernel = objKernelNotes.getKernelObject();
 			FileTextJoinZZZ objJoin = new FileTextJoinZZZ(objKernel, objLog, objFile, null);
 			
 			//2. for all filenames, crack them and add them to the joining - object

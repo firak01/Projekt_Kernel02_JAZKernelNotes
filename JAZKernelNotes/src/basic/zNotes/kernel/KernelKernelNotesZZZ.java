@@ -15,8 +15,8 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringArrayZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import basic.zKernel.IKernelZZZ;
 import basic.zKernel.KernelUseObjectZZZ;
-import basic.zKernel.KernelZZZ;
 import basic.zNotes.basic.AgentZZZ;
 import basic.zNotes.basic.DJAgentContext;
 import custom.zKernel.file.ini.FileIniZZZ;
@@ -43,14 +43,14 @@ public class KernelKernelNotesZZZ extends KernelUseObjectZZZ implements IKernelN
 	protected String sSystemNumber = null;
  
 	//Session & Context	
-	private Session objSession = null;            //Session, die durch AgentBase.getSession() gewonnen wird. Enthält Context Informationen
+	private Session objSession = null;            //Session, die durch AgentBase.getSession() gewonnen wird. Enthï¿½lt Context Informationen
 	//20060921 nun soll der NotesContextProvider alles liefern, darum keine spezielle DebugSession mehr 
-	//private Session objSessionDebug = null;  //Session, die durch NotesFactory.createSession(Username, Password) generiert wird. Enthält KEINE Context Informationen.
-																		 //Ermöglicht aber im Debug Modus eines externen Debuggers den Zugriff auf andere Datenbanken.
+	//private Session objSessionDebug = null;  //Session, die durch NotesFactory.createSession(Username, Password) generiert wird. Enthï¿½lt KEINE Context Informationen.
+																		 //Ermï¿½glicht aber im Debug Modus eines externen Debuggers den Zugriff auf andere Datenbanken.
 																		 //Besser: Eine Notes-ID-Datei verwenden, die Kein Kennwort besitzt.
 	
 	private DJAgentContext agtKernelCallingContext; //FGL 20060922 Mit dieser Hilfklasse wird nun der AgentContext z.B. im Servlet "gefaked"
-	private String sAgentNameFaked=null; //Falls ein Servlet verwendet wird, ist dieser Name zu übergeben.
+	private String sAgentNameFaked=null; //Falls ein Servlet verwendet wird, ist dieser Name zu ï¿½bergeben.
 	
 	//Databases
 	private Database dbKernelCalling = null;
@@ -70,7 +70,7 @@ public class KernelKernelNotesZZZ extends KernelUseObjectZZZ implements IKernelN
 	
 	//Documents
 	private Document docProfileApplication = null; // Das Profildokument der Applikation
-	private Document docStoreApplication = null; // Das Storedokument der Applikation, um sich ändernde Werte festzuhalten. Z.B. fortlaufende Nummern.
+	private Document docStoreApplication = null; // Das Storedokument der Applikation, um sich ï¿½ndernde Werte festzuhalten. Z.B. fortlaufende Nummern.
 
 	//Flags
 	boolean bFlagUseContextByKernel=false;
@@ -147,9 +147,9 @@ public class KernelKernelNotesZZZ extends KernelUseObjectZZZ implements IKernelN
 	
 	//+++ getter & setter - Methods
 	public NotesContextProviderZZZ getNotesContextProvider() throws ExceptionZZZ{
-		//Merke: Im Fall, das es ein echter notesagent ist, wird der Contextprovider entweder sofort im Konstruktor übergeben
+		//Merke: Im Fall, das es ein echter notesagent ist, wird der Contextprovider entweder sofort im Konstruktor ï¿½bergeben
 		//            oder der Context ist nun aus der Session heraus zu ermitteln.
-		//Merke2: Bei Servlets, etc. ohne echten Context, muss der Agentenname (gefaked) übergeben werden.
+		//Merke2: Bei Servlets, etc. ohne echten Context, muss der Agentenname (gefaked) ï¿½bergeben werden.
 		
 		if (this.objContextProvider==null){
 			System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ", objContextProvider==null");
@@ -178,7 +178,7 @@ public class KernelKernelNotesZZZ extends KernelUseObjectZZZ implements IKernelN
 		if(this.objSession==null){
 			System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ", objSession==null");
 			
-			 //Dies ist dann die Lösung für servlets und alles weitere, das kein echter Agent ist.
+			 //Dies ist dann die Lï¿½sung fï¿½r servlets und alles weitere, das kein echter Agent ist.
             NotesContextProviderZZZ objContextProvider = this.getNotesContextProvider();	
             this.objSession = objContextProvider.getSession();	            	
             if(this.objSession == null){
@@ -254,7 +254,7 @@ public class KernelKernelNotesZZZ extends KernelUseObjectZZZ implements IKernelN
  * @param saFlagControlIn
  * @throws ExceptionZZZ
  */
-public KernelKernelNotesZZZ(Session objSessionIn, KernelZZZ objKernel, String sApplicationKeyNotes, String sSystemNumberNotes, String[] saFlagControlIn) throws ExceptionZZZ{
+public KernelKernelNotesZZZ(Session objSessionIn, IKernelZZZ objKernel, String sApplicationKeyNotes, String sSystemNumberNotes, String[] saFlagControlIn) throws ExceptionZZZ{
 	Session objSession = null;
 	String sApplicationKey = null;
 	String sSystemNumber = null;
@@ -346,7 +346,7 @@ public KernelKernelNotesZZZ(Session objSessionIn,String sApplicationKeyIn, Strin
  * @return String
  */
 public String getApplicationKeyDefault() {
-	//Merke: Diese Function muss immer vom customizing Teil überschreiben werden.
+	//Merke: Diese Function muss immer vom customizing Teil ï¿½berschreiben werden.
 	String sFunction = null;
 	
 	main:{
@@ -426,7 +426,7 @@ public String getApplicationKeyDefault() {
 					String sMask = this.ProfileApplicationMaskCompute();
 					sKey = this.ProfileApplicationKeyCompute();
 					
-					System.out.println("KernelKernelNotesZZZ." + ReflectCodeZZZ.getMethodCurrentName() + ", Hole Profildokument mit Schlüssel: Mask='" + sMask + "' und Key='" + sKey + "' aus Datenbank " + dbCur.getServer() + "!!" + dbCur.getFilePath());
+					System.out.println("KernelKernelNotesZZZ." + ReflectCodeZZZ.getMethodCurrentName() + ", Hole Profildokument mit Schlï¿½ssel: Mask='" + sMask + "' und Key='" + sKey + "' aus Datenbank " + dbCur.getServer() + "!!" + dbCur.getFilePath());
 					this.docProfileApplication = dbCur.getProfileDocument(sMask, sKey);
 					if(this.docProfileApplication==null){
 						String sLog = "No applicationprofile-document could be found. Not configured properly for the kernel key '" + sKey + "' and the location '" + this.getLocationCurrent() + "' ?";
@@ -438,7 +438,7 @@ public String getApplicationKeyDefault() {
 					}
 				}//END if this.docProfileApplication == null
 				
-				//Auch wenn da schon ein Dokument ist, prüfen, ob es ein Konfigurationsdokument ist
+				//Auch wenn da schon ein Dokument ist, prï¿½fen, ob es ein Konfigurationsdokument ist
 				if(this.docProfileApplication.hasItem("LogLevelZZZ") == false){
 					String sLog = "LogLevelZZZ als Item nicht gefunden. Not configured properly for the kernel key '" + sKey + "' and the location '" + this.getLocationCurrent() + "' ?";
 					System.out.println("KernelKernelNotesZZZ." + ReflectCodeZZZ.getMethodCurrentName() + ", " + sLog);
@@ -468,11 +468,11 @@ public String getApplicationKeyDefault() {
   		try{
 			if(this.dbKernelCalling == null){
 				if(getFlag("UseContextByKernel")==true){
-					String sLog = ReflectCodeZZZ.getMethodCurrentName() + ", dbKernelCalling==null, UseContextByKernel-Flag==true; Hole die Datenbank über den NotesContextProviderZZZ";
+					String sLog = ReflectCodeZZZ.getMethodCurrentName() + ", dbKernelCalling==null, UseContextByKernel-Flag==true; Hole die Datenbank ï¿½ber den NotesContextProviderZZZ";
 					System.out.println(sLog);
 					dbFunction = this.getNotesContextProvider().getDb();				
 				}else{
-					String sLog = ReflectCodeZZZ.getMethodCurrentName() + ", dbKernelCalling==null, UseContextByKernel-Flag==false; Hole die Datenbank über den NotesContextProviderZZZ";
+					String sLog = ReflectCodeZZZ.getMethodCurrentName() + ", dbKernelCalling==null, UseContextByKernel-Flag==false; Hole die Datenbank ï¿½ber den NotesContextProviderZZZ";
 					System.out.println(sLog);
 					dbFunction= this.getAgentContextCurrent().getCurrentDatabase();	
 				}				
@@ -505,7 +505,7 @@ public String getApplicationKeyDefault() {
 	}
 	
 	
-	/** Holt für den Key aus der Applikation ein Notesdokument, in dem applikationsspezifische Informationen gespeichert werden.
+	/** Holt fï¿½r den Key aus der Applikation ein Notesdokument, in dem applikationsspezifische Informationen gespeichert werden.
 	 *    Z.B. eine vergebene Nummer.
 	 *    
 	* @param session
@@ -572,8 +572,8 @@ public String getApplicationKeyDefault() {
 		return objReturn;			
 	}
 	
-	/**Analog zum LotusScript-Kernel wird nun eine Methode angeboten, mit der ein Dokument default Reader/Author - Einträge bekommen kann.
-	 *  Es werden die Felder AuthorZZZ/ReaderZZZ, Author + ApplicationKey, bzw. Reader + ApplicationKey angelegt und mit den Standardrollen gefüllt.
+	/**Analog zum LotusScript-Kernel wird nun eine Methode angeboten, mit der ein Dokument default Reader/Author - Eintrï¿½ge bekommen kann.
+	 *  Es werden die Felder AuthorZZZ/ReaderZZZ, Author + ApplicationKey, bzw. Reader + ApplicationKey angelegt und mit den Standardrollen gefï¿½llt.
 	 *  
 	 *  Standardrollen:
 	 *  [ZZZAuthor]
@@ -581,7 +581,7 @@ public String getApplicationKeyDefault() {
 	 *  [ZZZAdmin]
 	 *  [ZZZServer]
 	 *  
-	 *  entsprechend für die Application z.B. beim ApplicationKey VIA
+	 *  entsprechend fï¿½r die Application z.B. beim ApplicationKey VIA
 	 *  [VIAAuthor]
 	 *  
 	 *  
@@ -922,7 +922,7 @@ public String getApplicationKeyDefault() {
   		main:{
   			try{
   			if(this.sLocationCurrent == null){
-  			    // Server oder Benutzername ermitteln, ist der Key für das Profildokument      
+  			    // Server oder Benutzername ermitteln, ist der Key fï¿½r das Profildokument      
             String sNameKeyTemp = "";
             Database dbCur = this.getDBKernelCalling();
             sNameKeyTemp = dbCur.getServer();
@@ -957,7 +957,7 @@ public String getApplicationKeyDefault() {
 public KernelNotesLogZZZ getKernelNotesLogObject() throws ExceptionZZZ{
 	  if(this.objKernelNotesLog==null){
 		  //+++ Das Kernel-Log
-		this.objKernelNotesLog = new KernelNotesLogZZZ(this, "");  //Merke: in diesem Spezialkonstruktor wird dann ein Typecast auf KernelNotesZZZ durchgeführt
+		this.objKernelNotesLog = new KernelNotesLogZZZ(this, "");  //Merke: in diesem Spezialkonstruktor wird dann ein Typecast auf KernelNotesZZZ durchgefï¿½hrt
 	  }
 	return this.objKernelNotesLog;
   }
@@ -978,13 +978,13 @@ public void setKernelNotesLogObject(KernelNotesLogZZZ objKernelNotesLog){
   	}
   	  	
   	/*
- 	//+++ Das Profildokument für die Applikation in der aktuellen Datenbank, wird kein Key angegeben, so muß der ApplicationKey explizit gesetzt werden, andernfalls werden Default-Werte verwendet.
+ 	//+++ Das Profildokument fï¿½r die Applikation in der aktuellen Datenbank, wird kein Key angegeben, so muï¿½ der ApplicationKey explizit gesetzt werden, andernfalls werden Default-Werte verwendet.
 	If(this.sKeyApplicationInput == 0)
 		sKeyApplication = objKernel.ApplicationKeyDefault
 		If Len(sKeyApplication) = 0 Then
 			sKeyApplication = objKernel.ApplicationKey
 			If Len(objKernel.Errormessage) > 0 Then
-				sError = objKernel.Errormessage & Chr(13) & Chr(10) & "Default ApplicationKey nicht definiert und Application Key nicht bei der Initialisierung des KernelObjekts übergeben."
+				sError = objKernel.Errormessage & Chr(13) & Chr(10) & "Default ApplicationKey nicht definiert und Application Key nicht bei der Initialisierung des KernelObjekts ï¿½bergeben."
 				Goto EndeError
 			End If	
 		End If
@@ -1005,13 +1005,13 @@ public void setKernelNotesLogObject(KernelNotesLogZZZ objKernelNotesLog){
   	}
   	  	
   	/*
- 	//+++ Das Profildokument für die Applikation in der aktuellen Datenbank, wird kein Key angegeben, so muß der ApplicationKey explizit gesetzt werden, andernfalls werden Default-Werte verwendet.
+ 	//+++ Das Profildokument fï¿½r die Applikation in der aktuellen Datenbank, wird kein Key angegeben, so muï¿½ der ApplicationKey explizit gesetzt werden, andernfalls werden Default-Werte verwendet.
 	If(this.sKeyApplicationInput == 0)
 		sKeyApplication = objKernel.ApplicationKeyDefault
 		If Len(sKeyApplication) = 0 Then
 			sKeyApplication = objKernel.ApplicationKey
 			If Len(objKernel.Errormessage) > 0 Then
-				sError = objKernel.Errormessage & Chr(13) & Chr(10) & "Default ApplicationKey nicht definiert und Application Key nicht bei der Initialisierung des KernelObjekts übergeben."
+				sError = objKernel.Errormessage & Chr(13) & Chr(10) & "Default ApplicationKey nicht definiert und Application Key nicht bei der Initialisierung des KernelObjekts ï¿½bergeben."
 				Goto EndeError
 			End If	
 		End If
@@ -1128,7 +1128,7 @@ public Database getDBByAlias(String sAlias, String sFlagcontrol) throws Exceptio
 		
 		String sServer = objItemServer.getValueString();		
 		String sDBPath = objItemDBPath.getValueString();
-		System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ", Hole Datenbankhandle für " + sServer + "!!" + sDBPath);
+		System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ", Hole Datenbankhandle fï¿½r " + sServer + "!!" + sDBPath);
 		if(sServer.equalsIgnoreCase("local") | sServer.equals("-")) sServer = "";
 		
 		//Get Handle on searched DB
@@ -1164,7 +1164,7 @@ public Database getDBByAlias(String sAlias, String sFlagcontrol) throws Exceptio
 		return objReturn;
 	}
 	
-	/** Also: Den Modulalias übergeben und anhand des aktuellen (ggf. "faked") Agentennamens den Namen der Section erhalten
+	/** Also: Den Modulalias ï¿½bergeben und anhand des aktuellen (ggf. "faked") Agentennamens den Namen der Section erhalten
 	
 	 @author 0823 , date: 26.10.2004
 	 @param sZAlias, the Alias of the Application-Part (Module Alias). E.g. 'Export' when you try to get an AgentAlias in the export-configuration	(this means a section name)                                                       	       
@@ -1173,7 +1173,7 @@ public Database getDBByAlias(String sAlias, String sFlagcontrol) throws Exceptio
 	 */
 	public String getAgentAliasCurrentZ(String sZAlias)throws ExceptionZZZ{
 		String sReturn = null;
-	    KernelZZZ objKernel=null;
+	    IKernelZZZ objKernel=null;
 		main:{		
 			try{
 				String sEnvironmentVariable = null;
@@ -1220,7 +1220,7 @@ public Database getDBByAlias(String sAlias, String sFlagcontrol) throws Exceptio
 				
 				
 				//find the Environment-Variable in the ini-File
-				FileIniZZZ objIni = new FileIniZZZ(objKernel, objFileConfig, null);
+				FileIniZZZ objIni = new FileIniZZZ(objKernel, objFileConfig, (String[])null);
 				String sSystemKey = objKernel.getSystemKey();
 				sReturn = objIni.getPropertyValue(sSystemKey, sEnvironmentVariable);
 			}catch(NotesException ne){
@@ -1253,13 +1253,13 @@ TargetPath=c:\tempfgl\SI\EDM_Interface\file00ZZZ
 	 @throws ExceptionZZZ
 	 */
 	public String getAgentParameterCurrentZ(String sZAliasIn, String sParamIn)throws ExceptionZZZ{
-		//TODO gleich methode, bei der das Object FileIniZZZ schon übergeben wird, soll bei wiederholten Aufrufen die Performance steigern.
+		//TODO gleich methode, bei der das Object FileIniZZZ schon ï¿½bergeben wird, soll bei wiederholten Aufrufen die Performance steigern.
 		String sReturn = null;
-		String sMethod; KernelZZZ objKernel=null;
+		String sMethod; IKernelZZZ objKernel=null;
 		main:{
 			try{
 			String sZAlias;
-			String sEnvironmentVariable; //wird hier nicht als parameter übergeben sondern muss aus dem AgentenContext ermittelt werden.
+			String sEnvironmentVariable; //wird hier nicht als parameter ï¿½bergeben sondern muss aus dem AgentenContext ermittelt werden.
 			String sParam;    
 			check:{
 				objKernel = this.getKernelObject();
@@ -1297,7 +1297,7 @@ TargetPath=c:\tempfgl\SI\EDM_Interface\file00ZZZ
 			
 			String sAgentAlias = this.getAgentAliasCurrentZ(sZAlias);
 			if(StringZZZ.isEmpty(sAgentAlias)){
-				ExceptionZZZ ez = new ExceptionZZZ("The agent seems not to be configured in the configuration file. objKernelNotes.getAgentAliasCurrentZ(..) can´t find an entry for the current agent.'",iERROR_CONFIGURATION_MISSING, this, ReflectCodeZZZ.getMethodCurrentName()); 				
+				ExceptionZZZ ez = new ExceptionZZZ("The agent seems not to be configured in the configuration file. objKernelNotes.getAgentAliasCurrentZ(..) canï¿½t find an entry for the current agent.'",iERROR_CONFIGURATION_MISSING, this, ReflectCodeZZZ.getMethodCurrentName()); 				
 				throw ez;
 			}
 			
@@ -1317,7 +1317,7 @@ TargetPath=c:\tempfgl\SI\EDM_Interface\file00ZZZ
 			}
 			
 			//find the Environment-Variable in the ini-File
-			FileIniZZZ objIni = new FileIniZZZ(objKernel, objFileConfig, null);
+			FileIniZZZ objIni = new FileIniZZZ(objKernel, objFileConfig, (String[])null);
 			sReturn = objIni.getPropertyValue(sAgentAlias, sParam);
 			
 			}catch(NotesException ne){
@@ -1343,9 +1343,9 @@ TargetPath=c:\tempfgl\SI\EDM_Interface\file00ZZZ
 	* lindhaueradmin; 29.09.2006 08:35:34
 	 */
 	public String getEnvironmentZ(String sZAliasIn, String sEnvironmentVariableIn) throws ExceptionZZZ{
-		//TODO eine methode, bei der das FileIniZZZ-Object schon übergeben wird, Performance.
+		//TODO eine methode, bei der das FileIniZZZ-Object schon ï¿½bergeben wird, Performance.
 		String sReturn = null;
-		String sMethod; KernelZZZ objKernel=null;
+		String sMethod; IKernelZZZ objKernel=null;
 		main:{
 			String sEnvironmentVariable;
 			String sZAlias;
@@ -1387,10 +1387,10 @@ TargetPath=c:\tempfgl\SI\EDM_Interface\file00ZZZ
 			}
 			
 			//find the ini-File for the alias
-			FileIniZZZ objIni = new FileIniZZZ(objKernel, objFileConfig, null);
+			FileIniZZZ objIni = new FileIniZZZ(objKernel, objFileConfig, (String[])null);
 			String sSystemKey = objKernel.getSystemKey();
 			
-			//TODO: Prüfen auf korrektheit der neuen Methode
+			//TODO: Prï¿½fen auf korrektheit der neuen Methode
 			//sReturn = objIni.getStringProperty(sSystemKey, sEnvironmentVariable);
 	sReturn = objIni.getPropertyValue(sSystemKey, sEnvironmentVariable);
 			
@@ -1444,7 +1444,7 @@ TargetPath=c:\tempfgl\SI\EDM_Interface\file00ZZZ
 					}
 				}else{
 						
-					//Vorhandenen Namen prüfen, ob er auch tatsächlich ein Verzeichnis ist.						
+					//Vorhandenen Namen prï¿½fen, ob er auch tatsï¿½chlich ein Verzeichnis ist.						
 					if(dir.isDirectory() == false){
 							String stemp = "a file exists with the 'base directory' name: '" + sBaseDirectory + "'";																	
 							ExceptionZZZ ez = new ExceptionZZZ(stemp, iERROR_PARAMETER_VALUE, this, ReflectCodeZZZ.getMethodCurrentName()); 														
@@ -1454,7 +1454,7 @@ TargetPath=c:\tempfgl\SI\EDM_Interface\file00ZZZ
 			} //end check:
 
 			
-			//Das Verzeichnis (Falls nicht anders in dem KernelZZZ, über die ini-Datei, definiert)
+			//Das Verzeichnis (Falls nicht anders in dem KernelZZZ, ï¿½ber die ini-Datei, definiert)
 			// so wird beispielsweise der UNC-Pfad angegeben   String sDirectorySource = "\\\\SAP-Storage\\SAP2Notes";
 			if(StringZZZ.isEmpty(sDirectory)){
 				sReturn = sBaseDirectory;
@@ -1520,7 +1520,7 @@ main:{
             	}		
             }//end paramcheck
                   
-		//setzen der übergebenen Flags	
+		//setzen der ï¿½bergebenen Flags	
 		if(saFlagControlIn != null){
 			for(int iCount = 0;iCount<=saFlagControlIn.length-1;iCount++){
 				stemp = saFlagControlIn[iCount];
@@ -1574,7 +1574,7 @@ main:{
 protected void finalize(){
 	this.recycle();
 	
-	/* dat ist nicht die lösung
+	/* dat ist nicht die lï¿½sung
 	if(this.docProfileApplication!=null){
 		GC.recycle(this.docProfileApplication);
 	}
@@ -1643,7 +1643,7 @@ public String getSystemKey() throws ExceptionZZZ{
 public String getSystemNumber() throws ExceptionZZZ{
 	try{
 		if(StringZZZ.isEmpty(this.sSystemNumber)){
-			//Falls es sich z.B. um ein Servlet handelt, wird der Context gefaked, ansonsten soll man die SystemNumber aus dem Applikation-Profildokument auslesen können.
+			//Falls es sich z.B. um ein Servlet handelt, wird der Context gefaked, ansonsten soll man die SystemNumber aus dem Applikation-Profildokument auslesen kï¿½nnen.
 			if(this.hasAgentContextBySession()==false){
 				NotesContextProviderZZZ objContext = this.getNotesContextProvider();
 				this.sSystemNumber = objContext.computeSystemNumber();

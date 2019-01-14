@@ -7,18 +7,18 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
+import basic.zKernel.IKernelZZZ;
 import basic.zKernel.KernelUseObjectZZZ;
-import basic.zKernel.KernelZZZ;
 import basic.zNotes.basic.*;
 
 
 /**
- * Stellt häufig benötigte Domino Objekte für einen 
+ * Stellt hï¿½ufig benï¿½tigte Domino Objekte fï¿½r einen 
  * Test bereit.
  * @author Thomas Ekert
  * 
  * FGL: 20060922
- * Erweitert um den AgentContext, der für Servlets "gefaked" werden muss.
+ * Erweitert um den AgentContext, der fï¿½r Servlets "gefaked" werden muss.
  *
  */
 public class NotesContextProviderZZZ extends KernelUseObjectZZZ{
@@ -34,7 +34,7 @@ public class NotesContextProviderZZZ extends KernelUseObjectZZZ{
 	private String sUsername = null;
 	private String sPassword = null;
 	
-	//Wichtig zum Finden der Parameter in der konfigurierten ini-Datei. Werden ggf. im Konstruktor übergeben.
+	//Wichtig zum Finden der Parameter in der konfigurierten ini-Datei. Werden ggf. im Konstruktor ï¿½bergeben.
 	private String sAgentName = null;
 	private String sModuleName = null;
 	
@@ -43,7 +43,7 @@ public class NotesContextProviderZZZ extends KernelUseObjectZZZ{
 	private String sUserIdPathOld = null;
 	private String sNotesIniPath = null;
 	
-	//Pfad der als default Verzeichnis für alles mögliche genutzt werden kann
+	//Pfad der als default Verzeichnis fï¿½r alles mï¿½gliche genutzt werden kann
 	private String sPathDirectoryDefault = null;
 	
 
@@ -53,8 +53,8 @@ public class NotesContextProviderZZZ extends KernelUseObjectZZZ{
 
 	//Flags
 	boolean bFlagHasAgentContextReal=false;
-	boolean bFlagUseStaticNotesThread=false; //Wird beim erzeugen einer lokalen notessesion auf true gesetzt. Notesthread.sinit wird ausgeführt.
-	                                                                 //Dies ist wichtig, da im Destruktor Notesthread.sterm ausgeführt werden soll.
+	boolean bFlagUseStaticNotesThread=false; //Wird beim erzeugen einer lokalen notessesion auf true gesetzt. Notesthread.sinit wird ausgefï¿½hrt.
+	                                                                 //Dies ist wichtig, da im Destruktor Notesthread.sterm ausgefï¿½hrt werden soll.
 	boolean bFlagUseConfiguredKeyFileName=false; //Bei lokalen Sessions kann man ggf. einen notesid gezielt verwenden.
 	
 	//FGL Erweiterung: Konstruktoren
@@ -63,22 +63,22 @@ public class NotesContextProviderZZZ extends KernelUseObjectZZZ{
 	 * @param objKernel
 	 * @throws ExceptionZZZ 
 	 */
-	public  NotesContextProviderZZZ(KernelZZZ objKernel, String sModuleName, Session objSession) throws ExceptionZZZ{		
+	public  NotesContextProviderZZZ(IKernelZZZ objKernel, String sModuleName, Session objSession) throws ExceptionZZZ{		
 		super(objKernel);	
 		objKernel.getLogObject().WriteLineDate(ReflectCodeZZZ.getMethodCurrentName() + "# Kontextdaten basieren auf Modul: '" + sModuleName + "'.");
 		if(objSession==null){
-			objKernel.getLogObject().WriteLineDate(ReflectCodeZZZ.getMethodCurrentName() + "# Kein Session - Objekt übergeben.");
+			objKernel.getLogObject().WriteLineDate(ReflectCodeZZZ.getMethodCurrentName() + "# Kein Session - Objekt ï¿½bergeben.");
 			ExceptionZZZ ez = new ExceptionZZZ("Session object", iERROR_PARAMETER_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 			throw ez;
 		}
 		if(StringZZZ.isEmpty((sModuleName))){
-			objKernel.getLogObject().WriteLineDate(ReflectCodeZZZ.getMethodCurrentName() + "# Kein Modulname  übergeben.");
+			objKernel.getLogObject().WriteLineDate(ReflectCodeZZZ.getMethodCurrentName() + "# Kein Modulname  ï¿½bergeben.");
 			ExceptionZZZ ez = new ExceptionZZZ("Module name", iERROR_PARAMETER_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 			throw ez;
 		}
 		this.objSession = objSession;
 		this.sModuleName = sModuleName;
-		//Merke: Der Agentname wird nicht durch den KernelZZZ gefaked, weil davon ausgegangen wird, das dieser Code im Context eines echten Agenten läuft
+		//Merke: Der Agentname wird nicht durch den KernelZZZ gefaked, weil davon ausgegangen wird, das dieser Code im Context eines echten Agenten lï¿½uft
 	   	this.setFlag("UseContextByKernel", false);
 	}
 	
@@ -88,7 +88,7 @@ public class NotesContextProviderZZZ extends KernelUseObjectZZZ{
 	 * @param sAgentName
 	 * @throws ExceptionZZZ 
 	 */
-	public NotesContextProviderZZZ(KernelZZZ objKernel, String sModuleName, String sAgentName) throws ExceptionZZZ{
+	public NotesContextProviderZZZ(IKernelZZZ objKernel, String sModuleName, String sAgentName) throws ExceptionZZZ{
 		super(objKernel);
 		objKernel.getLogObject().WriteLineDate(ReflectCodeZZZ.getMethodCurrentName() + "# Kontextdaten basieren auf Modul: '" + sModuleName + "', Agent: '" + sAgentName + "'.");
 		if(StringZZZ.isEmpty(sAgentName)){
@@ -112,22 +112,22 @@ public class NotesContextProviderZZZ extends KernelUseObjectZZZ{
 	 * @param session
 	 * @throws ExceptionZZZ
 	 */
-	public NotesContextProviderZZZ(KernelZZZ objKernel, String sModuleName, String sAgentName, Session session) throws ExceptionZZZ{
+	public NotesContextProviderZZZ(IKernelZZZ objKernel, String sModuleName, String sAgentName, Session session) throws ExceptionZZZ{
 		super(objKernel);
 		
 		objKernel.getLogObject().WriteLineDate(ReflectCodeZZZ.getMethodCurrentName() + "# Kontextdaten basieren auf Modul: '" + sModuleName + "', Agent: '" + sAgentName + "'.");
 		if(StringZZZ.isEmpty(sAgentName)){
-			objKernel.getLogObject().WriteLineDate(ReflectCodeZZZ.getMethodCurrentName() + "# Kein Agentenname  übergeben.");
+			objKernel.getLogObject().WriteLineDate(ReflectCodeZZZ.getMethodCurrentName() + "# Kein Agentenname  ï¿½bergeben.");
 			ExceptionZZZ ez = new ExceptionZZZ("Faked agent name", iERROR_PARAMETER_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 			throw ez;
 		}
 		if(StringZZZ.isEmpty((sModuleName))){
-			objKernel.getLogObject().WriteLineDate(ReflectCodeZZZ.getMethodCurrentName() + "# Kein Modulname  übergeben.");
+			objKernel.getLogObject().WriteLineDate(ReflectCodeZZZ.getMethodCurrentName() + "# Kein Modulname  ï¿½bergeben.");
 			ExceptionZZZ ez = new ExceptionZZZ("Module name", iERROR_PARAMETER_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 			throw ez;
 		}
 		if(session == null){
-			objKernel.getLogObject().WriteLineDate(ReflectCodeZZZ.getMethodCurrentName() + "# Kein Session - Objekt übergeben.");
+			objKernel.getLogObject().WriteLineDate(ReflectCodeZZZ.getMethodCurrentName() + "# Kein Session - Objekt ï¿½bergeben.");
 			ExceptionZZZ ez = new ExceptionZZZ("Notessession not provided", iERROR_PARAMETER_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 			throw ez;
 		}
@@ -144,7 +144,7 @@ public class NotesContextProviderZZZ extends KernelUseObjectZZZ{
 	 * @param sAgentName
 	 * @throws ExceptionZZZ 
 	 */
-	public NotesContextProviderZZZ(KernelZZZ objKernel, String sModuleAndAgentName) throws ExceptionZZZ{
+	public NotesContextProviderZZZ(IKernelZZZ objKernel, String sModuleAndAgentName) throws ExceptionZZZ{
 		super(objKernel);
 		
 		objKernel.getLogObject().WriteLineDate(ReflectCodeZZZ.getMethodCurrentName() + "# Kontextdaten basieren auf Modul: '" + sModuleName + "', Agent: '" + sAgentName + "'.");
@@ -229,7 +229,7 @@ public class NotesContextProviderZZZ extends KernelUseObjectZZZ{
 	public DJAgentContext getAgentContext() throws ExceptionZZZ{
 		DJAgentContext objReturn = null;
 		try{
-			KernelZZZ objKernel = this.getKernelObject();
+			IKernelZZZ objKernel = this.getKernelObject();
 		if(this.objAgentContext==null){
 			objKernel.getLogObject().WriteLineDate(ReflectCodeZZZ.getMethodCurrentName() + "#Versuche neues Notes-Context-Objekt zu bekommen.");
 			
@@ -249,7 +249,7 @@ public class NotesContextProviderZZZ extends KernelUseObjectZZZ{
 				this.setFlag("HasAgentContextReal", true);
 				objReturn = new DJAgentContext(objKernel, objSession);
 			}else{
-				//Das gefakte Context-Objekt nun mit dem Kernel-Object Konstruieren und allen anderen Informationen, die der Notes-Context-Provider zur Verfügung stellen kann.
+				//Das gefakte Context-Objekt nun mit dem Kernel-Object Konstruieren und allen anderen Informationen, die der Notes-Context-Provider zur Verfï¿½gung stellen kann.
 				objKernel.getLogObject().WriteLineDate(ReflectCodeZZZ.getMethodCurrentName()+ "#Agent context NOT available- FAKE IT !!!" );
 				
 				this.setFlag("HasAgentContextReal", false);
@@ -384,7 +384,7 @@ public class NotesContextProviderZZZ extends KernelUseObjectZZZ{
 					sReturn = NotesContextProviderZZZ.computeSystemNumber(dbCur);
 				}else{
 					//FALL: GEFAKTER CONTEXT
-					KernelZZZ objKernel = this.getKernelObject();					
+					IKernelZZZ objKernel = this.getKernelObject();					
 					sReturn = objKernel.getSystemNumber();					
 				}
 			}catch(NotesException ne){
@@ -396,8 +396,8 @@ public class NotesContextProviderZZZ extends KernelUseObjectZZZ{
 	}//end function
 	
 	/**
-	 * Gibt eine vordefinierte Testdatenbank zurück
-	 * @return geöffnete Test Datenbank
+	 * Gibt eine vordefinierte Testdatenbank zurï¿½ck
+	 * @return geï¿½ffnete Test Datenbank
 	 * @throws NotesException
 	 */
 	public Database getDb() throws NotesException, ExceptionZZZ {
@@ -414,7 +414,7 @@ public class NotesContextProviderZZZ extends KernelUseObjectZZZ{
 			testDb = objSession.getDatabase(sServer, sDBPath);
 		}
 		if (testDb == null || !testDb.isOpen()) {
-			String sLog = "Die Testdatenbank wurde nicht gefunden oder kann nicht geöffnet werden: " + sServer + "!!" + sDBPath;
+			String sLog = "Die Testdatenbank wurde nicht gefunden oder kann nicht geï¿½ffnet werden: " + sServer + "!!" + sDBPath;
 			System.out.println("NotesContextProvider.getDb(): " + sLog);
 			throw new NotesException(NOTESEXCEPTION_NO, sLog);
 		}
@@ -432,7 +432,7 @@ public class NotesContextProviderZZZ extends KernelUseObjectZZZ{
 		if (docContext == null) {
 			docContext = getDb().createDocument();
 			docContext.replaceItemValue("Form", sFORM_CONTEXT_DUMMY);
-			//TODO: Einen Parameter (flag) anbieten, dass dies auch speichern lässt
+			//TODO: Einen Parameter (flag) anbieten, dass dies auch speichern lï¿½sst
 			//docContext.save(true,false);
 		}
 		if (docContext == null) {
@@ -443,33 +443,33 @@ public class NotesContextProviderZZZ extends KernelUseObjectZZZ{
 	}
 	
 	/**
-	 * Gibt die Session zurück, über die der Server erreichbar ist.
-	 * Merke: Bei einem echten Notesagenten wird die Session über den Konstruktor mitgegeben.
+	 * Gibt die Session zurï¿½ck, ï¿½ber die der Server erreichbar ist.
+	 * Merke: Bei einem echten Notesagenten wird die Session ï¿½ber den Konstruktor mitgegeben.
 	 *             Bei Verwendung des Konstruktors mit dem "gefakten" Agentennamen, wird versucht eine lokale oder einen Internetsession herzustellen.
 	 *             Dazu werden Informationen aus der Kernel-Konfigurationsdate verwendet.
 	 *              
-	 *              ;Für eine ggf. aufzubauende Internet Session
+	 *              ;Fï¿½r eine ggf. aufzubauende Internet Session
 	 *              HostConfiguration=
 	 *              
 	 *             ;rein Domino basierend. Ein leerer ServerCalling-Wert bedeutet, dass eine lokale notessession aufgebaut werden soll
 ServerCalling=
 PathDBCalling=db\fgl\JAZ-Kernel\Test\ZKernel_JavaTest_Application.nsf
 
-;Für lokale Notessession ist der userid-pfad in der notes.ini ausschlaggebend. Über diesen Parameter wird der Pfad zur notes.ini Datei bestimmt
+;Fï¿½r lokale Notessession ist der userid-pfad in der notes.ini ausschlaggebend. ï¿½ber diesen Parameter wird der Pfad zur notes.ini Datei bestimmt
 ;Diese Notes.ini ist diejenige, die im Notes-executable Verzeichnis liegt.
 ;TODO: Falls dies leer ist, soll der Pfad zur Executable aus der Registry ausgelesen werden
 NotesExePath=c:\lotus\notes7
 
 
-;Für lokale Notessessions ist der Pfad, welcher in der Notes.ini angegeben ist ausschlaggebend. Dieser wird in dem Fall gesetzt.
+;Fï¿½r lokale Notessessions ist der Pfad, welcher in der Notes.ini angegeben ist ausschlaggebend. Dieser wird in dem Fall gesetzt.
 ;Dann wird dieser Wert als KeyFileName in die Notes.ini gesetzt.
 UserIDPath=c:\fglkernel\kernelcontext\flindhauer_fgl.id
 
 ;Falls keine lokale notessession verwendet wird, soll diese ID verwendet werden
 Username=Fritz Lindhauer/fgl/DE
 
-;Sowohl für lokale Notessession , als auch für alle anderen Vorgehensweisen, das benötigte Kennwort ist hier zu hinterlegen.
-;TODO: Das Passwort sollte hier verschlüsselt abgelegt werden
+;Sowohl fï¿½r lokale Notessession , als auch fï¿½r alle anderen Vorgehensweisen, das benï¿½tigte Kennwort ist hier zu hinterlegen.
+;TODO: Das Passwort sollte hier verschlï¿½sselt abgelegt werden
 Password=
 		
 	 * @return notnull
@@ -486,7 +486,7 @@ Password=
 		/*Der Versuch eine falsche ID zu verwenden bringt einen Fehler mit sich. Es muss daher:
 		 * 1. der Pfad zur Notes.ini ausgelesen werden
 		 * 2. ohne session.setEnvironmentString zu nutzen, sollte FileIniZZZ verwendet werden, um die entsprechende "WunschID" einzustellen.
-		 * 3. Es sollte einen Destruktor geben, der dies wieder Rückgängig macht.
+		 * 3. Es sollte einen Destruktor geben, der dies wieder Rï¿½ckgï¿½ngig macht.
 		 * 
 		 * 4. Das alles ist in einer Methode zu kapseln. Die zu testen ist. 
 		 * 
@@ -509,13 +509,13 @@ Password=
 				//DIe lokale Notessession wird immer ausgehend von dem KeyFilenameEintrag in der Notes.ini Datei eirzeugt.
 				//a) Bei einem Server ist dieser vermutlich leer
 				//b) Bei einem NotesClient oder einer Applikation, die den NotesClient bedingt, steht dort der Username drin, der zuletzt am Client angemeldet war.
-				//    Dieser Username ist ggf. nicht im Kernel konfiguriert oder wird nicht gewünscht.
-				//    Daher kann man für den Agenten einen anderen Usernamen auswählen (bzw. den Pfad zu einer anderen NotesID).
+				//    Dieser Username ist ggf. nicht im Kernel konfiguriert oder wird nicht gewï¿½nscht.
+				//    Daher kann man fï¿½r den Agenten einen anderen Usernamen auswï¿½hlen (bzw. den Pfad zu einer anderen NotesID).
 				//    Diese wird dann in die Notes.ini eingetragen und gut ist es. ...
 				this.getLogObject().WriteLineDate(ReflectCodeZZZ.getMethodCurrentName() + "#Hoststring ist leer, muss versuchen eine lokale Notessession zu erzeugen");
 				String sIDPath = this.getUserIdPath();				
 				if(StringZZZ.isEmpty(sIDPath)==false){
-//					0. Prüfen, ob diese konfigurierte Datei überhaupt exisitiert
+//					0. Prï¿½fen, ob diese konfigurierte Datei ï¿½berhaupt exisitiert
 					File objFile = new File(sIDPath);
 					if(objFile.exists()==false){
 						ExceptionZZZ ez = new ExceptionZZZ("Notes ID configured for local session does not exist: '" + sIDPath + "'", iERROR_CONFIGURATION_VALUE, this, ReflectCodeZZZ.getMethodCurrentName());
@@ -543,7 +543,7 @@ Password=
 				
 				//3. Erzeugen eines lokalen notesthreads
 				//Merke: Ohne diesen statischen Thread gibt es die Fehlermeldung "java.lang.UnsatisfiedLinkError: NCreateSession"
-				//Merke: Der NotesThread darf natürlich erst erzeugt werden, wenn die ini-datei der konfiguration entsprechend manipuliert worden ist.
+				//Merke: Der NotesThread darf natï¿½rlich erst erzeugt werden, wenn die ini-datei der konfiguration entsprechend manipuliert worden ist.
 				this.getLogObject().WriteLineDate(ReflectCodeZZZ.getMethodCurrentName() + "Muss einen statischen NotesThread erzeugen (NotesThread.sinitThread()).");
 				NotesThread.sinitThread(); // start thread
 				this.setFlag("UseStaticNotesThread", true);
@@ -580,7 +580,7 @@ Password=
 	
 
 	/**
-	 * löscht (!) das Kontext Document, falls vorhanden
+	 * lï¿½scht (!) das Kontext Document, falls vorhanden
 	 * und recycled alle internen Domino Objekte
 	 */
 	public void recycle() {
@@ -627,7 +627,7 @@ Password=
 	public String getHost() throws ExceptionZZZ{
 		if(this.sHost==null){
 			//TODO: Momentan ist es damit ein Pflichtparameter. Aber er sollte nicht Pflicht sein.
-			//           Ergo: Das Kernelobjekt um eine Methode erweitern, die zusätzlich zu der hier genannten Methode einen boolschen PAraemter hat, der besagt, ob ein Wert Pflicht ist oder nicht.
+			//           Ergo: Das Kernelobjekt um eine Methode erweitern, die zusï¿½tzlich zu der hier genannten Methode einen boolschen PAraemter hat, der besagt, ob ein Wert Pflicht ist oder nicht.
 			//                   Wenn ein Wert nicht Pflicht ist, dann wird er (auch wenn er ganz fehlt) keine Exception werfen. 
 			//                   Default sollten aber alle Werte Pflicht sein......
 			this.sHost = this.getKernelObject().getParameterByProgramAlias(this.getModuleName(),this.getAgentName(), "HostConfiguration");
@@ -679,7 +679,7 @@ Password=
 	public String getPassword() throws ExceptionZZZ{
 		if(this.sPassword==null){
 			this.sPassword = this.getKernelObject().getParameterByProgramAlias(this.getModuleName(), this.getAgentName(), "Password");
-			//TODO: Das Passwort sollte verschlüsselt hinterlegt werden und müsste hier wieder entschlüsselt werden			
+			//TODO: Das Passwort sollte verschlï¿½sselt hinterlegt werden und mï¿½sste hier wieder entschlï¿½sselt werden			
 		}
 		return this.sPassword;
 	}
@@ -728,7 +728,7 @@ Password=
 		}
 		
 		//2. FileIni-Objekt: Aus der Notes.ini-Datei den entsprechenden Pfad auslesen
-		FileIniZZZ objIni = new FileIniZZZ(objKernel, sPath, "notes.ini", null );
+		FileIniZZZ objIni = new FileIniZZZ(objKernel, sPath, "notes.ini", (String[])null );
 		sReturn = objIni.getPropertyValue("Notes", "KeyFileName");				
 		return sReturn;
 	}
@@ -753,7 +753,7 @@ Password=
 		}
 		
 		//2. FileIni-Objekt
-		FileIniZZZ objIni = new FileIniZZZ(objKernel, sPath, "notes.ini", null );
+		FileIniZZZ objIni = new FileIniZZZ(objKernel, sPath, "notes.ini", (String[]) null );
 		String stemp = objIni.getPropertyValue("Notes", "KeyFileName");
 		if(!sIdPath.equals(stemp) && !StringZZZ.isEmpty(stemp)){		
 			bReturn = objIni.setPropertyValue("Notes", "KeyFileName", sIdPath, true); //true = save immidiateley				
@@ -778,7 +778,7 @@ Password=
 		return this.sNotesIniPath;
 	}
 	
-	/** Gibt einen Pfad zurück, der konfiguriert werden kann. In diesem so konfigurierten Verzeichnis kann alles möglich liegen. Z.B. Import/Export Daten, etc.
+	/** Gibt einen Pfad zurï¿½ck, der konfiguriert werden kann. In diesem so konfigurierten Verzeichnis kann alles mï¿½glich liegen. Z.B. Import/Export Daten, etc.
 	* @return
 	* @throws ExceptionZZZ
 	* 

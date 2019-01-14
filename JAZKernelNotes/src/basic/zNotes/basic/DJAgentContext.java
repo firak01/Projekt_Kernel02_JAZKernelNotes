@@ -3,21 +3,23 @@ package basic.zNotes.basic;
  * Die Sourcecodes, die diesem Buch als Beispiele beiliegen, sind
  * Copyright (c) 2006 - Thomas Ekert. Alle Rechte vorbehalten.
  * 
- * Trotz sorgfältiger Kontrolle sind Fehler in Softwareprodukten nie vollständig auszuschließen.
+ * Trotz sorgfï¿½ltiger Kontrolle sind Fehler in Softwareprodukten nie vollstï¿½ndig auszuschlieï¿½en.
  * Die Sourcodes werden in Ihrem Originalzustand ausgeliefert.
- * Ansprüche auf Anpassung, Weiterentwicklung, Fehlerbehebung, Support
+ * Ansprï¿½che auf Anpassung, Weiterentwicklung, Fehlerbehebung, Support
  * oder sonstige wie auch immer gearteten Leistungen oder Haftung sind ausgeschlossen.
- * Sie dürfen kommerziell genutzt, weiterverarbeitet oder weitervertrieben werden.
- * Voraussetzung hierfür ist, dass für jeden beteiligten Entwickler, jeweils mindestens
+ * Sie dï¿½rfen kommerziell genutzt, weiterverarbeitet oder weitervertrieben werden.
+ * Voraussetzung hierfï¿½r ist, dass fï¿½r jeden beteiligten Entwickler, jeweils mindestens
  * ein Exemplar dieses Buches in seiner aktuellen Version als gekauftes Exemplar vorliegt.
  */
 import java.util.Vector; 
 
 
 
+
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import basic.zKernel.IKernelZZZ;
 import basic.zKernel.KernelUseObjectZZZ;
 import basic.zKernel.KernelZZZ;
 import basic.zNotes.kernel.NotesContextProviderZZZ;
@@ -36,7 +38,7 @@ public class DJAgentContext extends KernelUseObjectZZZ implements AgentContext {
 	private Database currentDB = null;
 	private String effectiveUserName = null;
 
-	public DJAgentContext(KernelZZZ objKernel, String user, Session objSession, Database db, Document doc, String sAgentNameFaked) throws ExceptionZZZ {
+	public DJAgentContext(IKernelZZZ objKernel, String user, Session objSession, Database db, Document doc, String sAgentNameFaked) throws ExceptionZZZ {
 		super(objKernel);
 		try{
 		this.objSession = objSession;
@@ -65,7 +67,7 @@ public class DJAgentContext extends KernelUseObjectZZZ implements AgentContext {
 			throw ez;
 		}
 	}
-	public DJAgentContext(KernelZZZ objKernel, String user, Session objSession, Database db, Document doc, Agent agent) throws ExceptionZZZ {
+	public DJAgentContext(IKernelZZZ objKernel, String user, Session objSession, Database db, Document doc, Agent agent) throws ExceptionZZZ {
 		super(objKernel);
 		this.objSession = objSession;
 		docContext = doc;
@@ -73,7 +75,7 @@ public class DJAgentContext extends KernelUseObjectZZZ implements AgentContext {
 		effectiveUserName = user;
 		objAgent = new AgentZZZ(objKernel, agent);
 	}
-	public DJAgentContext(KernelZZZ objKernel, Session objSession) throws ExceptionZZZ{
+	public DJAgentContext(IKernelZZZ objKernel, Session objSession) throws ExceptionZZZ{
 		super(objKernel);
 		try{		
 		this.objSession = objSession;

@@ -10,7 +10,7 @@ import java.io.File;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
-import basic.zKernel.KernelZZZ;
+import basic.zKernel.IKernelZZZ;
 import basic.zNotes.kernel.KernelNotesUseObjectZZZ;
 import custom.zKernel.file.FileTextExportCrackZZZ;
 import custom.zNotes.kernel.KernelNotesLogZZZ;
@@ -118,7 +118,7 @@ public class KernelFileTextCrackAndSplitZZZ  extends KernelNotesUseObjectZZZ{
 			
 			//0. proof file existance
 			KernelNotesZZZ objKernelNotes = this.getKernelNotesObject();
-			KernelZZZ objKernel = objKernelNotes.getKernelObject();
+			IKernelZZZ objKernel = objKernelNotes.getKernelObject();
 			File objFile = this.getFileObjectToSplit();
 			if(objFile.exists()==false|objFile.isFile()==false){
 				objKernelNotesLog.writeLog("No file exists '" + objFile.getPath() + "'",this,"startit",1);

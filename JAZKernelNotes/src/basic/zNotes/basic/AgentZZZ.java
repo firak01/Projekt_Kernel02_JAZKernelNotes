@@ -7,6 +7,7 @@ import lotus.domino.NotesException;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import basic.zKernel.IKernelZZZ;
 import basic.zKernel.KernelUseObjectZZZ;
 import basic.zKernel.KernelZZZ;
 
@@ -15,7 +16,7 @@ public class AgentZZZ extends KernelUseObjectZZZ{
 		private String sAgentName = null;
 		private String sAgentAlias = null;
 		
-		public AgentZZZ(KernelZZZ objKernel, Agent objAgent) throws ExceptionZZZ{
+		public AgentZZZ(IKernelZZZ objKernel, Agent objAgent) throws ExceptionZZZ{
 			super(objKernel);
 			if(objAgent==null){
 				ExceptionZZZ ez = new ExceptionZZZ("Real Agent handle", iERROR_PARAMETER_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
@@ -24,7 +25,7 @@ public class AgentZZZ extends KernelUseObjectZZZ{
 			this.objAgentReal = objAgent;
 		}
 		
-		public AgentZZZ(KernelZZZ objKernel, String sAgentName) throws ExceptionZZZ{
+		public AgentZZZ(IKernelZZZ objKernel, String sAgentName) throws ExceptionZZZ{
 			super(objKernel);
 			if(StringZZZ.isEmpty(sAgentName)){
 				ExceptionZZZ ez = new ExceptionZZZ("Faked agent name", iERROR_PARAMETER_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
@@ -39,7 +40,7 @@ public class AgentZZZ extends KernelUseObjectZZZ{
 				if(this.objAgentReal!=null){
 					String stemp = this.objAgentReal.getName();
 					
-					//Den Agentennamen nun auflösen
+					//Den Agentennamen nun auflï¿½sen
 					Vector objVectorAliasAll = AgentZZZ.solveAgentAliasAll(stemp);
 					this.sAgentName = (String) objVectorAliasAll.get(1);
 				}
@@ -55,7 +56,7 @@ public class AgentZZZ extends KernelUseObjectZZZ{
 					//Fall: Echter Notes-Agent
 					String stemp = this.objAgentReal.getName();
 					
-					//Den Agentennamen nun auflösen
+					//Den Agentennamen nun auflï¿½sen
 					Vector objVectorAliasAll = AgentZZZ.solveAgentAliasAll(stemp);
 					if(objVectorAliasAll.size()>=2){
 						this.sAgentAlias = (String) objVectorAliasAll.get(1);
@@ -79,7 +80,7 @@ public class AgentZZZ extends KernelUseObjectZZZ{
 			Vector objReturn = new Vector();
 			
 			//TODO: Eigentlich einen StringTokenizer verwenden
-//			Auflösen des Agentennamens, etc.
+//			Auflï¿½sen des Agentennamens, etc.
 			int itemp = sAgentNameTotal.indexOf("|");
 			if(itemp >= 0){
 				objReturn.add(sAgentNameTotal.substring(0,itemp));
