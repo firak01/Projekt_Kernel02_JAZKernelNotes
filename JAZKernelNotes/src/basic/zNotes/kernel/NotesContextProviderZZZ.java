@@ -18,7 +18,7 @@ import basic.zNotes.basic.*;
  * @author Thomas Ekert
  * 
  * FGL: 20060922
- * Erweitert um den AgentContext, der f�r Servlets "gefaked" werden muss.
+ * Erweitert um den AgentContext, der für Servlets "gefaked" werden muss.
  *
  */
 public class NotesContextProviderZZZ extends KernelUseObjectZZZ{
