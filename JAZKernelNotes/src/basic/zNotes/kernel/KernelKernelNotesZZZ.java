@@ -1222,7 +1222,7 @@ public Database getDBByAlias(String sAlias, String sFlagcontrol) throws Exceptio
 				//find the Environment-Variable in the ini-File
 				FileIniZZZ objIni = new FileIniZZZ(objKernel, objFileConfig, (String[])null);
 				String sSystemKey = objKernel.getSystemKey();
-				sReturn = objIni.getPropertyValue(sSystemKey, sEnvironmentVariable);
+				sReturn = objIni.getPropertyValue(sSystemKey, sEnvironmentVariable).getValue();
 			}catch(NotesException ne){
 				ExceptionZZZ ez = new ExceptionZZZ(ne.text, iERROR_RUNTIME, this, ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
@@ -1318,7 +1318,7 @@ TargetPath=c:\tempfgl\SI\EDM_Interface\file00ZZZ
 			
 			//find the Environment-Variable in the ini-File
 			FileIniZZZ objIni = new FileIniZZZ(objKernel, objFileConfig, (String[])null);
-			sReturn = objIni.getPropertyValue(sAgentAlias, sParam);
+			sReturn = objIni.getPropertyValue(sAgentAlias, sParam).getValue();
 			
 			}catch(NotesException ne){
 				ExceptionZZZ ez = new ExceptionZZZ(ne.text, iERROR_RUNTIME, this, ReflectCodeZZZ.getMethodCurrentName());
@@ -1392,7 +1392,7 @@ TargetPath=c:\tempfgl\SI\EDM_Interface\file00ZZZ
 			
 			//TODO: Pr�fen auf korrektheit der neuen Methode
 			//sReturn = objIni.getStringProperty(sSystemKey, sEnvironmentVariable);
-	sReturn = objIni.getPropertyValue(sSystemKey, sEnvironmentVariable);
+	sReturn = objIni.getPropertyValue(sSystemKey, sEnvironmentVariable).getValue();
 			
 		}//end main:
 		return sReturn;

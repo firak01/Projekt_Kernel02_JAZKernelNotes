@@ -630,7 +630,7 @@ Password=
 			//           Ergo: Das Kernelobjekt um eine Methode erweitern, die zus�tzlich zu der hier genannten Methode einen boolschen PAraemter hat, der besagt, ob ein Wert Pflicht ist oder nicht.
 			//                   Wenn ein Wert nicht Pflicht ist, dann wird er (auch wenn er ganz fehlt) keine Exception werfen. 
 			//                   Default sollten aber alle Werte Pflicht sein......
-			this.sHost = this.getKernelObject().getParameterByProgramAlias(this.getModuleName(),this.getAgentName(), "HostConfiguration");
+			this.sHost = this.getKernelObject().getParameterByProgramAlias(this.getModuleName(),this.getAgentName(), "HostConfiguration").getValue();
 		}
 		return this.sHost;
 	}
@@ -644,7 +644,7 @@ Password=
 	public String getServerCalling() throws ExceptionZZZ{
 		if(this.sServer==null){
 			//this.sServer=this.getKernelObject().getParameterByProgramAlias("KernelNotes","ProgContext","ServerCalling");			
-			this.sServer=this.getKernelObject().getParameterByProgramAlias(this.getModuleName(),this.getAgentName(),"ServerCalling");
+			this.sServer=this.getKernelObject().getParameterByProgramAlias(this.getModuleName(),this.getAgentName(),"ServerCalling").getValue();
 		}
 		return this.sServer;
 	}
@@ -656,7 +656,7 @@ Password=
 	 */
 	public String getDBCallingPath() throws ExceptionZZZ{
 		if(this.sDatabase==null){
-			this.sDatabase = this.getKernelObject().getParameterByProgramAlias(this.getModuleName(),this.getAgentName(),"PathDBCalling");
+			this.sDatabase = this.getKernelObject().getParameterByProgramAlias(this.getModuleName(),this.getAgentName(),"PathDBCalling").getValue();
 		}
 		return this.sDatabase;
 	}
@@ -671,14 +671,14 @@ Password=
 	public String getUsername() throws ExceptionZZZ{
 		if(this.sUsername==null){
 			//this.sUsername = this.getKernelObject().getParameterByProgramAlias("KernelNotes", "ProgContext", "Username");
-			this.sUsername = this.getKernelObject().getParameterByProgramAlias(this.getModuleName(), this.getAgentName(), "Username");
+			this.sUsername = this.getKernelObject().getParameterByProgramAlias(this.getModuleName(), this.getAgentName(), "Username").getValue();
 		}
 		return this.sUsername;
 	}
 	
 	public String getPassword() throws ExceptionZZZ{
 		if(this.sPassword==null){
-			this.sPassword = this.getKernelObject().getParameterByProgramAlias(this.getModuleName(), this.getAgentName(), "Password");
+			this.sPassword = this.getKernelObject().getParameterByProgramAlias(this.getModuleName(), this.getAgentName(), "Password").getValue();
 			//TODO: Das Passwort sollte verschl�sselt hinterlegt werden und m�sste hier wieder entschl�sselt werden			
 		}
 		return this.sPassword;
@@ -692,7 +692,7 @@ Password=
 	 */
 	public String getUserIdPath() throws ExceptionZZZ{
 		if(this.sUserIdPath==null){
-			this.sUserIdPath = this.getKernelObject().getParameterByProgramAlias(this.getModuleName(), this.getAgentName(), "UserIDPath");			
+			this.sUserIdPath = this.getKernelObject().getParameterByProgramAlias(this.getModuleName(), this.getAgentName(), "UserIDPath").getValue();		
 		}
 		return this.sUserIdPath;
 	}
@@ -729,7 +729,7 @@ Password=
 		
 		//2. FileIni-Objekt: Aus der Notes.ini-Datei den entsprechenden Pfad auslesen
 		FileIniZZZ objIni = new FileIniZZZ(objKernel, sPath, "notes.ini", (String[])null );
-		sReturn = objIni.getPropertyValue("Notes", "KeyFileName");				
+		sReturn = objIni.getPropertyValue("Notes", "KeyFileName").getValue();			
 		return sReturn;
 	}
 	
@@ -754,7 +754,7 @@ Password=
 		
 		//2. FileIni-Objekt
 		FileIniZZZ objIni = new FileIniZZZ(objKernel, sPath, "notes.ini", (String[]) null );
-		String stemp = objIni.getPropertyValue("Notes", "KeyFileName");
+		String stemp = objIni.getPropertyValue("Notes", "KeyFileName").getValue();
 		if(!sIdPath.equals(stemp) && !StringZZZ.isEmpty(stemp)){		
 			bReturn = objIni.setPropertyValue("Notes", "KeyFileName", sIdPath, true); //true = save immidiateley				
 			objIni = null;
@@ -774,7 +774,7 @@ Password=
 		 
 		//Aber als einfache Variante den Pfad zur Notes.ini in der Konfigurationsdatei hinterlegen
 		//this.sNotesIniPath = this.getKernelObject().getParameterByProgramAlias("KernelNotes", "ProgContext", "NotesExePath");
-		this.sNotesIniPath = this.getKernelObject().getParameterByProgramAlias(this.getModuleName(), this.getAgentName(), "NotesExePath");
+		this.sNotesIniPath = this.getKernelObject().getParameterByProgramAlias(this.getModuleName(), this.getAgentName(), "NotesExePath").getValue();
 		return this.sNotesIniPath;
 	}
 	
@@ -797,7 +797,7 @@ Password=
 	* lindhauer; 04.01.2008 15:59:20
 	 */
 	public String readPathDirectoryDefault() throws ExceptionZZZ{
-		this.sPathDirectoryDefault = this.getKernelObject().getParameterByProgramAlias(this.getModuleName(), this.getAgentName(), "DirectoryDefaultPath");
+		this.sPathDirectoryDefault = this.getKernelObject().getParameterByProgramAlias(this.getModuleName(), this.getAgentName(), "DirectoryDefaultPath").getValue();
 		if(StringZZZ.isEmpty(this.sPathDirectoryDefault)){
 			this.sPathDirectoryDefault = ".";
 		}else{		
