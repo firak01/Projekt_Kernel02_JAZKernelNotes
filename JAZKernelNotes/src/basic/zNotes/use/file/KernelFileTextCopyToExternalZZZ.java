@@ -59,9 +59,9 @@ public class KernelFileTextCopyToExternalZZZ extends AgentBase{
 startpoint:
  	System.out.println("Start des Agenten. Agenten-Part");
 
-    String sFuncCur = "NotesMain";  //Merke: Todo: Eine Klasse für das Handeln der Codeposition schreiben;
-    PrintWriter out = getAgentOutput(); // For Output  //Merke: Todo - Eine Klasse für das Handeln des Otuputs schreiben.
-                                                            //Diese soll sowohl Exceptions verarbeiten können
+    String sFuncCur = "NotesMain";  //Merke: Todo: Eine Klasse fï¿½r das Handeln der Codeposition schreiben;
+    PrintWriter out = getAgentOutput(); // For Output  //Merke: Todo - Eine Klasse fï¿½r das Handeln des Otuputs schreiben.
+                                                            //Diese soll sowohl Exceptions verarbeiten kï¿½nnen
                                                             //als auch Codepositionsklassen
                                                             //als auch normale Outputs
                                                             //die Ausgabe soll erfolgen:
@@ -75,8 +75,8 @@ startpoint:
 main:
 			try{                                            //Merke: Eine Klasse schreiben, die sich von Exception ableitet
                                                       //       und dann quasi als ZZZException immer alle main: - Teile umschliesst
-                                                      //Merke2: Alle Z-Objekte müssen von einer Klasse ZZZObject erben.
-                                                      //        Alle Funktionen müssen die ZZZException auswerfen.
+                                                      //Merke2: Alle Z-Objekte mï¿½ssen von einer Klasse ZZZObject erben.
+                                                      //        Alle Funktionen mï¿½ssen die ZZZException auswerfen.
 				// get the session
 				Session session = getSession();
 
@@ -109,11 +109,11 @@ main:
 			KernelNotesZZZ objKernelNotes = new KernelNotesZZZ(session, objKernel,"","", (String[])null);
 			
 
-             out.println("Agent läuft in der Datenbank: '" + sTitle + "'");
+             out.println("Agent lï¿½uft in der Datenbank: '" + sTitle + "'");
              out.flush(); //Sicherstellen, dass der Outputcache leer ist.
 
 			 String sUsername = session.getUserName();
-			 out.println("Session für : '" + sUsername + "'");
+			 out.println("Session fï¿½r : '" + sUsername + "'");
              out.flush(); //Sicherstellen, dass der Outputcache leer ist.
 
 
@@ -159,7 +159,7 @@ main:
 
 		// Das Zielverzeichnis, ausgehend von dem Data-Directory + "fileZZZ"						
 		String sDirectoryTarget = "\\\\SAP-Storage\\SAP2Notes";       
-		//für den Test auf fgl01: 		String sDirectoryTarget = new String("e:\\temp\\albis\\");
+		//fï¿½r den Test auf fgl01: 		String sDirectoryTarget = new String("e:\\temp\\albis\\");
 								
 		File dir = new File(sDirectoryTarget);
 		if (dir.exists() == false){
@@ -188,7 +188,7 @@ main:
 
         //Den Ausgangsdateinamen
         //String sFileSource = doc.getItemValueString("FileNameZZZ");
-         //o.k. wenn der Server als Dienst unter dem Administratorennamen läuft: String sFileSource = "\\\\Atilla\\temp\\test.txt";
+         //o.k. wenn der Server als Dienst unter dem Administratorennamen lï¿½uft: String sFileSource = "\\\\Atilla\\temp\\test.txt";
 
        
      //Mappen der Dateinamen und kopieren               
@@ -209,7 +209,7 @@ main:
         if(sFileTarget.length()==0){
         	sFileTarget = sFileSource;
         }
-        // ToDo: Hier nach dem Targetnamen fragen und ggf. eine Zahl von 001-999 anhängen.
+        // ToDo: Hier nach dem Targetnamen fragen und ggf. eine Zahl von 001-999 anhï¿½ngen.
         
         
         if(sFileSource.length() > 0){	
@@ -247,7 +247,7 @@ main:
    				int c;
           //ToDo: Verlauf der Kopieraktion protokollieren.
   				while ((c = bfin.read()) != -1) bfout.write(c);
-			//Schliessen der Dateiströme
+			//Schliessen der Dateistrï¿½me
  				 bfin.close();
  				 bfout.close();
  				 fin.close();
@@ -283,7 +283,7 @@ main:
         		}	
         }//end if saFileSource[i] != null
         	}//end if Dateiname <> ""
-        }//end for über alle Dateien
+        }//end for ï¿½ber alle Dateien
 
 	}//end try FileNotFoundException
      //Alle weiteren Exceptions      
@@ -358,16 +358,16 @@ end:
 	 */
 	public String NameFileTargetCompute(String sPathTarget, String sFileTarget, int iExpandLengthIn) throws ExceptionZZZ {
 		/*
-		 * Anhängen einer 3-stelligen Ziffer (von 001 - 999) an die Datei,
+		 * Anhï¿½ngen einer 3-stelligen Ziffer (von 001 - 999) an die Datei,
 		 * falls der Dateiname schon vorhanden ist.
-		 * Falls diese schon vorhanden ist, wird zur nächsten Ziffer gegangen		 * 
+		 * Falls diese schon vorhanden ist, wird zur nï¿½chsten Ziffer gegangen		 * 
 		 */
 		 String sFunction = "";
 		 String sEnding = new String("");   //die Endung z.B. txt
 		 String sFileOnly = new String(""); //nur der Dateinamsbestandteil (also ohne Suffix)
-		 int iFileOnlyLength = 0; // Länge des Dateinamens ohne das Suffix z.B. .txt
-		 int iFileTargetLength = 0; //Länge des Dateinamens inklusive Suffix
-		 int iExpandLength = 0;   //Länge der angestrebten Dateinamensendung
+		 int iFileOnlyLength = 0; // Lï¿½nge des Dateinamens ohne das Suffix z.B. .txt
+		 int iFileTargetLength = 0; //Lï¿½nge des Dateinamens inklusive Suffix
+		 int iExpandLength = 0;   //Lï¿½nge der angestrebten Dateinamensendung
 		 Integer intExpandValue = new Integer(0); //Wert der aktuellen Dateinamensendung		 
 		 int iExpandValue;                        //dito
 		 String sExpandValue = new String("");    //dito als String 		 
@@ -377,7 +377,7 @@ main:
 
 	paramcheck:
 	{
-		//Leere Dateinamen können nicht "expanidert" werden.
+		//Leere Dateinamen kï¿½nnen nicht "expanidert" werden.
 		iFileTargetLength = sFileTarget.length();
 		if(iFileTargetLength <= 0){
 			break main;
@@ -393,8 +393,9 @@ main:
  	
  	
  	
-		FileZZZ objFile = new FileZZZ(sPathTarget, sFileTarget, (String[]) null);
-		sExpandValue = objFile.getExpansionNext(iExpandLength);
+		String[] saFlag = {"USE_FILE_EXPANSION"};
+		FileZZZ objFile = new FileZZZ(sPathTarget, sFileTarget, saFlag);
+		sExpandValue = objFile.getNameExpandedNext();//.getExpansionNext(iExpandLength);
 		bFlagAppend = objFile.getFlag("ExpansionAppend");
 		sFileOnly = objFile.getNameOnly();
 		sEnding = objFile.getNameEnd();
